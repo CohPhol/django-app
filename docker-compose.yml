@@ -2,12 +2,15 @@ version: '3.7'
 
 services:
   app:
-    build:
-      context: .
+    build: ./docker/web
     ports:
       - "8000:8000"
     volumes:
-      - ./app:/app
+      - ./crm:/app
     command: sh -c "python manage.py runserver 0.0.0.0:8000"
     environment:
       - DEBUG=1
+  database:
+    build: ./docker/db
+    ports:
+      - "3306:3306"

@@ -1,4 +1,4 @@
-# Django-project-1
+# CRM
  A sample project in Django
 
 
@@ -7,4 +7,5 @@
 - python
 - django
 - docker
+- mysql
 ```
