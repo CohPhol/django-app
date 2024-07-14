@@ -1,0 +1,36 @@
+{% extends 'default.html' %}
+
+{% block content %}
+<div class="col-md-6 offset-md-3">
+    <h1>Register</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        {% if form.errors %}
+        <div class="alert alert-danger">
+            <strong>Error!</strong> Please correct the following errors:<br>
+            {% for field, errors in form.errors.items %}
+            {{ field }}:
+            <ul>
+                {% for error in errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+
+        {{ form.as_p }}
+
+        <br>
+        <div class="d-flex flex-direction-column align-items-center justify-content-between">
+            <button type="submit" class="btn btn-primary">Register</button>
+            <a href="{% url 'login' %}">Have an account?</a>
+        </div>
+
+
+    </form>
+</div>
+{% endblock %}
