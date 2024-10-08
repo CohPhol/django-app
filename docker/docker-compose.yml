@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: crm
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+    ports:
+      - "3306:3306"
+
+  web:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ../crm:/app/crm
+    environment:
+      MYSQL_DATABASE: crm
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+      MYSQL_HOST: db
+      MYSQL_PORT: 3306
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    command: python /app/crm/manage.py runserver 0.0.0.0:8000
+
+volumes:
+  mysql_data:
